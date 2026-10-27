@@ -94,17 +94,17 @@ export function BookingPanel({ email, selectedService }: { email: string; select
     await supabase.auth.signOut();
   };
 
-  const chip = (active: boolean) => cn("rounded-full border px-4 py-2 text-xs font-medium transition", active ? "border-primary bg-primary text-primary-foreground" : "border-border text-soft-foreground hover:border-primary/60");
+  const chip = (active: boolean) => cn("min-h-11 rounded-full border px-4 py-2 text-xs font-medium transition", active ? "border-primary bg-primary text-primary-foreground" : "border-border text-soft-foreground hover:border-primary/60");
 
   return (
-    <div className="w-full text-left p-4 sm:p-6 space-y-7">
-      <div className="flex items-center gap-4">
-        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary/60 grid place-items-center font-bold text-primary-foreground" style={{ fontFamily: "var(--hf)" }}>DP</div>
+    <div className="w-full min-w-0 text-left p-4 sm:p-6 space-y-7">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex">
+        <div className="hidden sm:grid shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary/60 grid place-items-center font-bold text-primary-foreground" style={{ fontFamily: "var(--hf)" }}>DP</div>
         <div className="min-w-0 flex-1">
-          <h2 className="text-xl font-semibold" style={{ fontFamily: "var(--hf)" }}>Agende seu horário</h2>
-          <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1 break-all"><Star className="w-3.5 h-3.5 fill-primary text-primary shrink-0" /> 5.0 · Olá, {email}</p>
+          <h2 className="text-lg sm:text-xl font-semibold" style={{ fontFamily: "var(--hf)" }}>Agende seu horário</h2>
+          <p className="text-xs text-muted-foreground mt-1 flex items-start gap-1 break-all"><Star className="w-3.5 h-3.5 fill-primary text-primary shrink-0" /> 5.0 · Olá, {email}</p>
         </div>
-        <button type="button" onClick={signOut} aria-label="Sair da conta" className="text-muted-foreground hover:text-primary transition" title="Sair">
+        <button type="button" onClick={signOut} aria-label="Sair da conta" className="size-11 shrink-0 grid place-items-center text-muted-foreground hover:text-primary transition" title="Sair">
           <LogOut className="w-4 h-4" />
         </button>
       </div>
@@ -133,8 +133,8 @@ export function BookingPanel({ email, selectedService }: { email: string; select
         <div className="flex items-center justify-between mb-3">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Data</p>
           <div className="flex gap-2">
-            <button type="button" aria-label="Semana anterior" disabled={week === 0} onClick={() => setWeek(week - 1)} className="w-8 h-8 rounded-full border border-border grid place-items-center disabled:opacity-30 hover:border-primary"><ChevronLeft className="w-4 h-4" /></button>
-            <button type="button" aria-label="Próxima semana" disabled={week >= 3} onClick={() => setWeek(week + 1)} className="w-8 h-8 rounded-full border border-border grid place-items-center disabled:opacity-30 hover:border-primary"><ChevronRight className="w-4 h-4" /></button>
+            <button type="button" aria-label="Semana anterior" disabled={week === 0} onClick={() => setWeek(week - 1)} className="w-11 h-11 rounded-full border border-border grid place-items-center disabled:opacity-30 hover:border-primary"><ChevronLeft className="w-4 h-4" /></button>
+            <button type="button" aria-label="Próxima semana" disabled={week >= 3} onClick={() => setWeek(week + 1)} className="w-11 h-11 rounded-full border border-border grid place-items-center disabled:opacity-30 hover:border-primary"><ChevronRight className="w-4 h-4" /></button>
           </div>
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
@@ -185,7 +185,7 @@ export function BookingPanel({ email, selectedService }: { email: string; select
                   <span className="block text-xs text-primary mt-1">{brl(b.price)} · {b.status}</span>
                 </div>
                 {b.status === "agendado" && (
-                  <button type="button" aria-label="Cancelar agendamento" disabled={busy} onClick={() => void cancel(b.id)} className="text-muted-foreground hover:text-primary"><Trash2 className="w-4 h-4" /></button>
+                  <button type="button" aria-label="Cancelar agendamento" disabled={busy} onClick={() => void cancel(b.id)} className="size-11 shrink-0 grid place-items-center text-muted-foreground hover:text-primary"><Trash2 className="w-4 h-4" /></button>
                 )}
               </li>
             ))}
