@@ -5,6 +5,7 @@ import { SERVICES } from "./services";
 import { Button } from "@/components/ui/button";
 import { contactSchema, contactEmailUrl } from "./contact-validation";
 import { supabase } from "@/integrations/supabase/client";
+import { DEMO_ADDRESS, LocationSection } from "./location-section";
 
 function AuthLink() {
   const [email, setEmail] = React.useState<string | null>(null);
@@ -20,7 +21,7 @@ function AuthLink() {
   if (email) {
     return (
       <div className="relative">
-        <button type="button" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="rounded-full border border-primary px-6 py-3 text-[13px] font-semibold hover:bg-primary hover:text-primary-foreground transition">Entrar</button>
+        <button type="button" aria-expanded={open} onClick={() => setOpen((v) => !v)} className="rounded-full border border-primary px-4 sm:px-6 py-3 text-[13px] font-semibold hover:bg-primary hover:text-primary-foreground transition">Entrar</button>
         {open && (
           <div className="absolute right-0 mt-2 z-50 w-64 rounded-2xl border border-border bg-card p-4 shadow-lg">
             <p className="text-xs text-muted-foreground">Conectado como</p>
@@ -32,7 +33,7 @@ function AuthLink() {
       </div>
     );
   }
-  return <Link to="/login" search={{ service: undefined }} className="rounded-full border border-primary px-6 py-3 text-[13px] font-semibold hover:bg-primary hover:text-primary-foreground transition">Entrar</Link>;
+  return <Link to="/login" search={{ service: undefined }} className="rounded-full border border-primary px-4 sm:px-6 py-3 text-[13px] font-semibold hover:bg-primary hover:text-primary-foreground transition">Entrar</Link>;
 }
 
 const NAV = [
@@ -49,8 +50,8 @@ export function Shell({ eyebrow, title, intro, children, showBookingCta = true }
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border">
-        <div className="mx-auto max-w-6xl px-6 py-6 flex items-center justify-between gap-6">
-          <Link to="/" className="leading-none">
+        <div className="mx-auto max-w-6xl px-5 py-5 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 md:flex md:justify-between md:gap-6">
+          <Link to="/" className="min-w-0 leading-none">
             <b className="text-lg font-semibold" style={H}>DETAIL<span className="text-primary">PRO</span></b>
             <small className="block text-[10px] text-muted-foreground mt-1">estética automotiva</small>
           </Link>
@@ -59,14 +60,14 @@ export function Shell({ eyebrow, title, intro, children, showBookingCta = true }
           </nav>
           <AuthLink />
         </div>
-        <nav className="md:hidden flex gap-5 overflow-x-auto px-6 pb-4 text-sm text-soft-foreground">
+        <nav className="md:hidden flex gap-5 overflow-x-auto px-5 pb-3 [&_a]:flex [&_a]:min-h-11 [&_a]:items-center text-sm text-soft-foreground">
           {NAV.map((n) => <Link key={n.to} to={n.to} className="whitespace-nowrap" activeProps={{ className: "text-primary" }}>{n.label}</Link>)}
         </nav>
       </header>
-      <main className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+      <main className="mx-auto max-w-6xl px-5 py-10 sm:px-6 md:py-20">
         <p className="flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-muted-foreground mb-5"><span className="w-8 h-0.5 bg-primary" />{eyebrow}</p>
-        <h1 className="text-3xl md:text-5xl font-medium leading-tight max-w-3xl mb-6" style={H}>{title}</h1>
-        <p className="text-muted-foreground max-w-xl leading-relaxed mb-14">{intro}</p>
+        <h1 className="text-2xl sm:text-3xl md:text-5xl break-words font-medium leading-tight max-w-3xl mb-6" style={H}>{title}</h1>
+        <p className="text-muted-foreground max-w-xl leading-relaxed mb-8 sm:mb-14">{intro}</p>
         {children}
         {showBookingCta && <div className="mt-20 border-t border-border py-8 md:py-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
@@ -96,8 +97,8 @@ export function ServicesPage() {
         {SERVICES.map((s) => (
           <article key={s.id} id={s.id} className="scroll-mt-24 rounded-2xl border border-border bg-card overflow-hidden transition hover:border-card-hover-border">
             <Link to="/servico/$service" params={{ service: s.id }} aria-label={`Ver ${s.name}`}><img src={s.img} alt={s.name} className="w-full h-52 object-cover" loading="lazy" /></Link>
-            <div className="p-7">
-              <div className="flex items-center gap-3 mb-3"><s.Icon className="w-5 h-5 text-primary" /><h2 className="text-lg font-semibold">{s.name}</h2></div>
+            <div className="p-5 sm:p-7">
+              <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 mb-3 [&_svg]:shrink-0"><s.Icon className="w-5 h-5 text-primary" /><h2 className="text-lg font-semibold">{s.name}</h2></div>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">{s.text}</p>
               <div className="flex items-center justify-between gap-4 flex-wrap">
                 <span className="text-sm"><b className="text-primary">{s.price}</b><span className="text-muted-foreground"> · {s.time}</span></span>
@@ -194,23 +195,22 @@ export function ContactPage() {
     window.location.href = contactEmailUrl(result.data);
     setNotice("Mensagem preparada. Conclua o envio no seu aplicativo de e-mail.");
   };
-  const address = "Antonio Firmino da Silva, 210 - Santa Maria, José Bonifácio, SP";
+  const address = DEMO_ADDRESS;
   const mapQuery = "Av. Antônio Firmino da Silva, 210, Santa Maria, José Bonifácio - SP, 15200-000, Brasil";
-  const mapEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&near=-21.04748,-49.69653&z=17&output=embed`;
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
   return (
     <Shell eyebrow="Contato" title="Fale com a gente" intro="Tire dúvidas, peça um orçamento ou siga a DetailPro nas redes sociais.">
       <div className="grid gap-6 lg:grid-cols-[1fr_1.3fr]">
         <div className="space-y-4">
           {[
-            { Icon: MapPin, t: "Endereço", d: address, href: mapLink },
+            { Icon: MapPin, t: "Endereço de exemplo (fictício)", d: address, href: mapLink },
             { Icon: Phone, t: "Telefone", d: "+7 999 123-45-67", href: "tel:+79991234567" },
             { Icon: Mail, t: "E-mail", d: "contato@detailpro.com", href: "mailto:contato@detailpro.com" },
             { Icon: Clock, t: "Horário de atendimento", d: "Seg a Sáb, 8h às 18h" },
             { Icon: Instagram, t: "Instagram", d: "Solicitar perfil oficial", href: "mailto:contato@detailpro.com?subject=Perfil%20oficial%20do%20Instagram" },
             { Icon: Send, t: "Telegram", d: "Solicitar contato oficial", href: "mailto:contato@detailpro.com?subject=Contato%20oficial%20do%20Telegram" },
           ].map(({ Icon, t, d, href }) => {
-            const body = <><div className="w-11 h-11 rounded-full border border-primary bg-icon-background text-primary grid place-items-center flex-none"><Icon className="w-4 h-4" /></div><div><p className="text-xs text-muted-foreground">{t}</p><p className="text-sm font-semibold">{d}</p></div></>;
+            const body = <><div className="w-11 h-11 rounded-full border border-primary bg-icon-background text-primary grid place-items-center flex-none"><Icon className="w-4 h-4" /></div><div className="min-w-0 break-words"><p className="text-xs text-muted-foreground">{t}</p><p className="text-sm font-semibold">{d}</p></div></>;
             return href ? <a key={t} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className={`${card} !p-5 flex items-center gap-4`}>{body}</a> : <div key={t} className={`${card} !p-5 flex items-center gap-4`}>{body}</div>;
           })}
         </div>
@@ -226,21 +226,7 @@ export function ContactPage() {
               {notice && <p className="text-sm text-muted-foreground" role="status">{notice}</p>}
         </form>
       </div>
-      <div className="mt-10">
-        <div className="rounded-2xl border border-border bg-card overflow-hidden">
-          <iframe
-            title="Localização da DetailPro no Google Maps"
-            src={mapEmbed}
-            className="w-full h-[320px] md:h-[440px] border-0"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-          />
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-5 border-t border-border">
-            <p className="text-sm text-muted-foreground max-w-xl"><b className="text-foreground font-semibold">Onde estamos:</b> {address}</p>
-            <a href={mapLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-primary px-5 py-2.5 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition flex-none">Abrir no Google Maps <ArrowRight className="w-4 h-4" /></a>
-          </div>
-        </div>
-      </div>
+      <div className="mt-10"><LocationSection /></div>
     </Shell>
   );
 }

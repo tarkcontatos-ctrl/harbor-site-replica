@@ -132,16 +132,13 @@ const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
   };
 
   const input =
-    "w-full px-6 py-4 rounded-full bg-foreground/[0.07] border border-border text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition";
+    "w-full px-6 py-4 rounded-full bg-foreground/[0.07] border border-border text-foreground placeholder:text-muted-foreground text-base sm:text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition";
 
   const signedIn = Boolean(userEmail);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background relative overflow-hidden w-full px-4 py-16">
-      <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[560px] h-[560px] rounded-full bg-primary/15 blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[380px] h-[380px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
-
-      <div className={`relative z-10 w-full ${signedIn ? "max-w-2xl px-2 sm:px-4 py-4" : "max-w-md px-8 sm:px-12 py-14"} rounded-[2rem] bg-card/70 border border-border backdrop-blur-xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)] flex flex-col items-center`}>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-background relative w-full px-4 py-8 sm:py-16">
+      <div className={`relative z-10 w-full ${signedIn ? "max-w-2xl sm:px-4 py-4" : "max-w-md px-5 sm:px-12 py-8 sm:py-14"} rounded-[2rem] bg-card/70 border border-border backdrop-blur-xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)] flex flex-col items-center`}>
         {checking ? <p className="text-sm text-muted-foreground" role="status">Verificando seu acesso…</p> : signedIn ? (
           <BookingPanel email={userEmail ?? ""} selectedService={selectedService} />
         ) : (
@@ -182,14 +179,14 @@ const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
                     <span className="text-xs text-muted-foreground">ou</span>
                     <span className="flex-1 h-px bg-border" />
                   </div>
-                  <button type="button" onClick={handleGoogle} className="w-full bg-foreground/[0.07] border border-border text-foreground font-medium px-6 py-4 rounded-full hover:bg-foreground/[0.12] transition text-sm flex items-center justify-center gap-3">
+                  <button type="button" onClick={handleGoogle} className="w-full bg-foreground/[0.07] border border-border text-foreground font-medium px-3 sm:px-6 py-4 rounded-full hover:bg-foreground/[0.12] transition text-sm flex items-center justify-center gap-3">
                     <GoogleIcon />
                     Continuar com o Google
                   </button>
                 </>
               )}
 
-              <span className="text-sm text-muted-foreground text-center mt-4 space-x-3">
+              <span className="text-sm text-muted-foreground text-center mt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
                 {mode === "entrar" ? (
                   <>
                     <button type="button" onClick={() => { setMode("cadastrar"); setError(""); setNotice(""); }} className="underline text-foreground/80 hover:text-foreground">Inscreva-se, é grátis!</button>
