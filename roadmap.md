@@ -1,7 +1,8 @@
 # Remaining button review
-- [ ] Adapt navigation, home, content pages and booking controls for phones.
-- [ ] Add a clearly labeled example location at the bottom using the existing Google Maps embed.
-- [ ] Verify phone layouts and navigation; Google Maps rendering requires user verification.
+- [x] Adapt navigation, home, content pages and booking controls for phones.
+- [x] Add a clearly labeled example location at the bottom using the existing Google Maps embed.
+- [x] Verify public phone layouts at 360, 390 and 640px and service-to-login navigation; no horizontal overflow or runtime errors.
+- [ ] Verify Google Maps rendering on the published site; live Maps testing is unavailable here.
 - [ ] Brand authentication emails as DetailPro without Lovable branding; blocked until an owned sender domain is configured.
 - [x] Booking email notifications shelved at the user's request; no sender setup or sends added.
 - [x] Add staff walk-in scheduling, save customer details and verify real booking readback.
