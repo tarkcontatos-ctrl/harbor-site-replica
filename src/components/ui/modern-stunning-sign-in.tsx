@@ -138,9 +138,6 @@ const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background relative w-full px-4 py-8 sm:py-16">
-      <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[560px] h-[560px] rounded-full bg-primary/15 blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[380px] h-[380px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
-
       <div className={`relative z-10 w-full ${signedIn ? "max-w-2xl sm:px-4 py-4" : "max-w-md px-5 sm:px-12 py-8 sm:py-14"} rounded-[2rem] bg-card/70 border border-border backdrop-blur-xl shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)] flex flex-col items-center`}>
         {checking ? <p className="text-sm text-muted-foreground" role="status">Verificando seu acesso…</p> : signedIn ? (
           <BookingPanel email={userEmail ?? ""} selectedService={selectedService} />
