@@ -1,6 +1,9 @@
 # Remaining button review
+- [ ] Adapt navigation, home, content pages and booking controls for phones.
+- [ ] Add a clearly labeled example location at the bottom using the existing Google Maps embed.
+- [ ] Verify phone layouts and navigation; Google Maps rendering requires user verification.
 - [ ] Brand authentication emails as DetailPro without Lovable branding; blocked until an owned sender domain is configured.
-- [ ] Send personalized booking confirmation to the registered customer and a separate owner notice to tarkcontatos@gmail.com; blocked until the owner's email sender domain is configured.
+- [x] Booking email notifications shelved at the user's request; no sender setup or sends added.
 - [x] Add staff walk-in scheduling, save customer details and verify real booking readback.
 - [x] Add complete daily, monthly and annual financial charts and verify period filters.
 - [x] Require first-password setup for new Google accounts only and preserve existing-account access (automated checks passed).

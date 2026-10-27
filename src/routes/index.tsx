@@ -8,6 +8,7 @@ import ceramic_coating from "@/assets/ceramic-coating-4k.webp";
 import water_drops from "@/assets/water-drops-4k.webp";
 import car_care from "@/assets/car-care-4k.webp";
 import rear_light from "@/assets/rear-light-4k.webp";
+import { LocationSection } from "@/features/detailpro/location-section";
 
 const photographs: Record<string, string> = {
   "hero-car": hero_car,
@@ -20,6 +21,7 @@ const photographs: Record<string, string> = {
   "rear-light": rear_light,
 };
 const pageHtml = originalHtml.replace(/__ASSET_([a-z-]+)__/g, (_, name: string) => photographs[name] ?? "");
+const footerStart = pageHtml.indexOf('<footer');
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -38,10 +40,10 @@ export const Route = createFileRoute("/")({
 function Index() {
   // This is trusted, source-controlled markup from the user's original file, not user input.
   return (
-    <div
-      className="detailpro"
-      style={{ "--p": `url(${car_care})` } as React.CSSProperties}
-      dangerouslySetInnerHTML={{ __html: pageHtml }}
-    />
+    <>
+      <div className="detailpro" style={{ "--p": `url(${car_care})` } as React.CSSProperties} dangerouslySetInnerHTML={{ __html: footerStart >= 0 ? pageHtml.slice(0, footerStart) : pageHtml }} />
+      <LocationSection />
+      {footerStart >= 0 && <div className="detailpro" dangerouslySetInnerHTML={{ __html: pageHtml.slice(footerStart) }} />}
+    </>
   );
 }
