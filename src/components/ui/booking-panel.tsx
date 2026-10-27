@@ -1,12 +1,14 @@
 import * as React from "react";
-import { ChevronLeft, ChevronRight, MapPin, Check, CalendarDays, Trash2, Star, LogOut } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin, Check, CalendarDays, Trash2, Star, LogOut, FileCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { SERVICES, type Service } from "@/features/detailpro/services";
 import { supabase } from "@/integrations/supabase/client";
 import { listMyBookings, listTakenSlots, createBooking, cancelBooking } from "@/lib/bookings.functions";
+import { BookingConfirmation } from "@/features/detailpro/booking-confirmation";
+import type { ReceiptBooking } from "@/features/detailpro/booking-receipt";
 
-type Booking = { id: string; dateTime: string; status: string; location: string; service: string; price: number };
+type Booking = ReceiptBooking;
 
 const LOCATIONS = ["Unidade Centro", "Unidade Zona Sul", "Atendimento em domicílio"];
 const TIMES = ["08:00", "09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
@@ -29,6 +31,7 @@ export function BookingPanel({ email, selectedService }: { email: string; select
   const [now, setNow] = React.useState<Date | null>(null);
   const [busy, setBusy] = React.useState(false);
   const [error, setError] = React.useState("");
+  const [confirmationId, setConfirmationId] = React.useState<string | null>(null);
 
   const refresh = React.useCallback(async () => {
     try {
@@ -60,7 +63,7 @@ export function BookingPanel({ email, selectedService }: { email: string; select
     if (taken(day, time) || past(day, time)) return;
     setBusy(true); setError("");
     try {
-      await createBooking({
+      const created = await createBooking({
         data: {
           service: service.id,
           date: day,
@@ -69,6 +72,7 @@ export function BookingPanel({ email, selectedService }: { email: string; select
           ...(placa && modelo ? { placa, modelo } : {}),
         },
       });
+      setConfirmationId(created.id);
       setTime(null); setDay(null);
       await refresh();
     } catch (err) {
@@ -98,6 +102,14 @@ export function BookingPanel({ email, selectedService }: { email: string; select
 
   return (
     <div className="w-full min-w-0 text-left p-4 sm:p-6 space-y-7">
+      <BookingConfirmation booking={bookings.find((booking) => booking.id === confirmationId)} email={email} onClose={() => setConfirmationId(null)} />
+      {confirmationId && !bookings.some((booking) => booking.id === confirmationId) && (
+        <div role="status" className="border-l-2 border-primary pl-4 space-y-2">
+          <p className="font-semibold">Agendamento confirmado!</p>
+          <p className="text-sm text-muted-foreground break-all">Código: {confirmationId}</p>
+          <Button type="button" variant="outline" disabled={busy} onClick={() => void refresh()} className="min-h-11">Atualizar comprovante</Button>
+        </div>
+      )}
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex">
         <div className="hidden sm:grid shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary/60 grid place-items-center font-bold text-primary-foreground" style={{ fontFamily: "var(--hf)" }}>DP</div>
         <div className="min-w-0 flex-1">
@@ -184,6 +196,7 @@ export function BookingPanel({ email, selectedService }: { email: string; select
                   <span className="block text-xs text-muted-foreground">{fmt(b.dateTime)} às {new Date(b.dateTime).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })} · {b.location}</span>
                   <span className="block text-xs text-primary mt-1">{brl(b.price)} · {b.status}</span>
                 </div>
+                <Button type="button" variant="ghost" size="icon" aria-label="Ver comprovante" title="Ver comprovante" onClick={() => setConfirmationId(b.id)} className="size-11 shrink-0 text-muted-foreground hover:text-primary"><FileCheck className="size-4" /></Button>
                 {b.status === "agendado" && (
                   <button type="button" aria-label="Cancelar agendamento" disabled={busy} onClick={() => void cancel(b.id)} className="size-11 shrink-0 grid place-items-center text-muted-foreground hover:text-primary"><Trash2 className="w-4 h-4" /></button>
                 )}

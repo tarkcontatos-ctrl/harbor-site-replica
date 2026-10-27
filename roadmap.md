@@ -1,4 +1,5 @@
 # Remaining button review
+- [ ] Add free on-site booking confirmation and saveable receipt; verify creation and saved readback.
 - [x] Adapt navigation, home, content pages and booking controls for phones.
 - [x] Add a clearly labeled example location at the bottom using the existing Google Maps embed.
 - [x] Verify public phone layouts at 360, 390 and 640px and service-to-login navigation; no horizontal overflow or runtime errors.
