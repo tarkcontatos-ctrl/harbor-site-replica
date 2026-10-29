@@ -1,4 +1,5 @@
 # Remaining button review
+- [ ] Install supplied FB logo and replace placeholder branding, address and social contacts; verify visible links.
 - [x] Add free on-site booking confirmation and saveable receipt; seven tests pass, mobile display and download verified in isolation.
 - [ ] Verify confirmation after a real customer booking and reload; blocked until the user signs in to the preview (automatic sign-in could not find their account).
 - [x] Adapt navigation, home, content pages and booking controls for phones.
