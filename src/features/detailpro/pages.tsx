@@ -5,7 +5,9 @@ import { SERVICES } from "./services";
 import { Button } from "@/components/ui/button";
 import { contactSchema, contactEmailUrl } from "./contact-validation";
 import { supabase } from "@/integrations/supabase/client";
-import { DEMO_ADDRESS, LocationSection } from "./location-section";
+import { LocationSection } from "./location-section";
+import { COMPANY, COMPANY_MAP_LINK } from "./company";
+import { CompanyLogo } from "./company-logo";
 
 function AuthLink() {
   const [email, setEmail] = React.useState<string | null>(null);
@@ -52,8 +54,7 @@ export function Shell({ eyebrow, title, intro, children, showBookingCta = true }
       <header className="border-b border-border">
         <div className="mx-auto max-w-6xl px-5 py-5 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 md:flex md:justify-between md:gap-6">
           <Link to="/" className="min-w-0 leading-none">
-            <b className="text-lg font-semibold" style={H}>DETAIL<span className="text-primary">PRO</span></b>
-            <small className="block text-[10px] text-muted-foreground mt-1">estética automotiva</small>
+            <CompanyLogo />
           </Link>
           <nav className="hidden md:flex gap-10 text-sm text-soft-foreground">
             {NAV.map((n) => <Link key={n.to} to={n.to} className="hover:text-primary" activeProps={{ className: "text-primary" }}>{n.label}</Link>)}
@@ -195,20 +196,16 @@ export function ContactPage() {
     window.location.href = contactEmailUrl(result.data);
     setNotice("Mensagem preparada. Conclua o envio no seu aplicativo de e-mail.");
   };
-  const address = DEMO_ADDRESS;
-  const mapQuery = "Av. Antônio Firmino da Silva, 210, Santa Maria, José Bonifácio - SP, 15200-000, Brasil";
-  const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
   return (
     <Shell eyebrow="Contato" title="Fale com a gente" intro="Tire dúvidas, peça um orçamento ou siga a DetailPro nas redes sociais.">
       <div className="grid gap-6 lg:grid-cols-[1fr_1.3fr]">
         <div className="space-y-4">
           {[
-            { Icon: MapPin, t: "Endereço de exemplo (fictício)", d: address, href: mapLink },
-            { Icon: Phone, t: "Telefone", d: "+7 999 123-45-67", href: "tel:+79991234567" },
+            { Icon: MapPin, t: "Endereço", d: COMPANY.fullAddress, href: COMPANY_MAP_LINK },
+            { Icon: Phone, t: "WhatsApp", d: COMPANY.whatsapp, href: COMPANY.whatsappUrl },
             { Icon: Mail, t: "E-mail", d: "contato@detailpro.com", href: "mailto:contato@detailpro.com" },
             { Icon: Clock, t: "Horário de atendimento", d: "Seg a Sáb, 8h às 18h" },
-            { Icon: Instagram, t: "Instagram", d: "Solicitar perfil oficial", href: "mailto:contato@detailpro.com?subject=Perfil%20oficial%20do%20Instagram" },
-            { Icon: Send, t: "Telegram", d: "Solicitar contato oficial", href: "mailto:contato@detailpro.com?subject=Contato%20oficial%20do%20Telegram" },
+            { Icon: Instagram, t: "Instagram", d: COMPANY.instagram, href: COMPANY.instagramUrl },
           ].map(({ Icon, t, d, href }) => {
             const body = <><div className="w-11 h-11 rounded-full border border-primary bg-icon-background text-primary grid place-items-center flex-none"><Icon className="w-4 h-4" /></div><div className="min-w-0 break-words"><p className="text-xs text-muted-foreground">{t}</p><p className="text-sm font-semibold">{d}</p></div></>;
             return href ? <a key={t} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className={`${card} !p-5 flex items-center gap-4`}>{body}</a> : <div key={t} className={`${card} !p-5 flex items-center gap-4`}>{body}</div>;

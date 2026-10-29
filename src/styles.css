@@ -87,6 +87,7 @@ header{position:absolute;inset:0 0 auto;z-index:5;padding:26px 0}
 header .wrap{display:flex;align-items:center;justify-content:space-between}
 .logo b{font-family:var(--hf);font-size:18px;font-weight:600;letter-spacing:.01em}.logo b span{color:var(--ac)}
 .logo small{display:block;font-size:10px;color:var(--mu);margin-top:4px;letter-spacing:.03em}
+.logo img{width:84px;height:84px;object-fit:contain;border-radius:8px}footer .logo img{width:96px;height:96px}
 nav{display:flex;gap:48px;font-size:14px;color:var(--soft-foreground)}nav a:hover{color:var(--ac)}
 .hr{display:flex;align-items:center;gap:30px;font-size:14px;font-weight:500}.hr .ph{display:flex;align-items:center;gap:10px}.hr .ph .i{color:var(--ac);width:15px;height:15px}
 /* hero */

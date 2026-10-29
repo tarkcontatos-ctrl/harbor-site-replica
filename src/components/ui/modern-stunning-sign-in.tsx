@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useNavigate } from "@tanstack/react-router";
 import { loginDestination } from "@/features/detailpro/login-destination";
+import { CompanyLogo } from "@/features/detailpro/company-logo";
 
 const GoogleIcon = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" aria-hidden="true">
@@ -144,12 +145,7 @@ const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
         ) : (
           <>
             <a href="/" className="flex flex-col items-center mb-10">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary/60 border border-primary/40 flex items-center justify-center mb-5 shadow-[0_10px_30px_-8px_var(--primary)]">
-                <span className="text-xl font-bold text-primary-foreground" style={{ fontFamily: "var(--hf)" }}>DP</span>
-              </div>
-              <b className="text-2xl font-semibold tracking-tight" style={{ fontFamily: "var(--hf)" }}>
-                DETAIL<span className="text-primary">PRO</span>
-              </b>
+              <CompanyLogo className="size-36" />
               <span className="text-xs text-muted-foreground mt-2 tracking-[0.25em] uppercase">
                 {mode === "cadastrar" ? "Crie sua conta" : mode === "recuperar" ? "Recuperar senha" : "Entre para agendar"}
               </span>
