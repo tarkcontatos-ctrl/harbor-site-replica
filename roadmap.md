@@ -1,5 +1,6 @@
 # Remaining button review
-- [ ] Add free on-site booking confirmation and saveable receipt; verify creation and saved readback.
+- [x] Add free on-site booking confirmation and saveable receipt; seven tests pass, mobile display and download verified in isolation.
+- [ ] Verify confirmation after a real customer booking and reload; blocked until the user signs in to the preview (automatic sign-in could not find their account).
 - [x] Adapt navigation, home, content pages and booking controls for phones.
 - [x] Add a clearly labeled example location at the bottom using the existing Google Maps embed.
 - [x] Verify public phone layouts at 360, 390 and 640px and service-to-login navigation; no horizontal overflow or runtime errors.
