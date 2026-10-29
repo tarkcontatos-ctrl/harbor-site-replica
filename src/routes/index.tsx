@@ -9,8 +9,10 @@ import water_drops from "@/assets/water-drops-4k.webp";
 import car_care from "@/assets/car-care-4k.webp";
 import rear_light from "@/assets/rear-light-4k.webp";
 import { LocationSection } from "@/features/detailpro/location-section";
+import companyLogo from "@/assets/fb-logo.jpg";
 
 const photographs: Record<string, string> = {
+  "company-logo": companyLogo,
   "hero-car": hero_car,
   "complete-wash": complete_wash,
   "interior-cleaning": interior_cleaning,
