@@ -4,10 +4,10 @@ import { ContactPage } from "@/features/detailpro/pages";
 export const Route = createFileRoute("/contato")({
   head: () => ({
     meta: [
-      { title: "Contato — DetailPro" },
-      { name: "description", content: "Endereço no mapa, telefone, e-mail, redes sociais e formulário de contato da DetailPro." },
-      { property: "og:title", content: "Contato — DetailPro" },
-      { property: "og:description", content: "Endereço no mapa, telefone, e-mail, redes sociais e formulário de contato da DetailPro." },
+      { title: "Contato — FB Estética Automotiva" },
+      { name: "description", content: "Endereço no mapa, telefone, e-mail, redes sociais e formulário de contato da FB Estética Automotiva." },
+      { property: "og:title", content: "Contato — FB Estética Automotiva" },
+      { property: "og:description", content: "Endereço no mapa, telefone, e-mail, redes sociais e formulário de contato da FB Estética Automotiva." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

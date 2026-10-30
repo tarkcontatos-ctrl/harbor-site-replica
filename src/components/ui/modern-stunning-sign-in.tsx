@@ -198,7 +198,7 @@ const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
       </div>
 
       <p className="relative z-10 mt-12 text-sm text-muted-foreground text-center">
-        Junte-se a <b className="text-foreground font-semibold">milhares</b> de clientes que confiam na DetailPro.
+        Junte-se a <b className="text-foreground font-semibold">milhares</b> de clientes que confiam na FB Estética Automotiva.
       </p>
     </div>
   );

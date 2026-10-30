@@ -28,9 +28,9 @@ const footerStart = pageHtml.indexOf('<footer');
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "DetailPro — Estética automotiva" },
+      { title: "FB Estética Automotiva — Estética automotiva" },
       { name: "description", content: "Cuidado profissional que preserva a aparência e prolonga a vida útil do seu veículo. Lavagem, higienização, polimento e proteção cerâmica." },
-      { property: "og:title", content: "DetailPro — Estética automotiva" },
+      { property: "og:title", content: "FB Estética Automotiva — Estética automotiva" },
       { property: "og:description", content: "Cuidado profissional, brilho e proteção em cada detalhe do seu veículo." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

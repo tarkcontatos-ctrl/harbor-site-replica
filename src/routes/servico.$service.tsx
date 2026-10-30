@@ -11,9 +11,9 @@ export const Route = createFileRoute("/servico/$service")({
     return { id: service.id, name: service.name, text: service.text };
   },
   head: ({ loaderData }) => ({ meta: [
-    { title: loaderData ? `${loaderData.name} — DetailPro` : "Serviço indisponível — DetailPro" },
+    { title: loaderData ? `${loaderData.name} — FB Estética Automotiva` : "Serviço indisponível — FB Estética Automotiva" },
     { name: "description", content: loaderData?.text ?? "Serviço indisponível." },
-    { property: "og:title", content: loaderData ? `${loaderData.name} — DetailPro` : "Serviço indisponível — DetailPro" },
+    { property: "og:title", content: loaderData ? `${loaderData.name} — FB Estética Automotiva` : "Serviço indisponível — FB Estética Automotiva" },
     { property: "og:description", content: loaderData?.text ?? "Serviço indisponível." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
