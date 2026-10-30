@@ -23,3 +23,5 @@
 - Aggregate financial charts from the complete immutable ledger by competence date, filling missing periods with zero and subtracting refunds.
 - Track new Google registration in an auth lifecycle trigger, gate app rendering in the root, and allow first-password writes only for the authenticated pending owner; existing identities and password changes must never enter this privileged onboarding path.
 - Build on-site booking receipts from persisted booking readback, using Brasília time and saved totals; keep downloads browser-local so confirmation needs no email or messaging service.
+- Create customer bookings through an authenticated atomic database RPC; keep service prices database-owned and record payment transitions through the caller-scoped client for ledger attribution.
+- Share the sign-in implementation between customer and team entry points; only protected database roles authorize team access, never the selected login page or signup metadata.

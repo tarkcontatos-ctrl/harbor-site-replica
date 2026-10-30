@@ -6,6 +6,8 @@ import { lovable } from "@/integrations/lovable/index";
 import { useNavigate } from "@tanstack/react-router";
 import { loginDestination } from "@/features/detailpro/login-destination";
 import { CompanyLogo } from "@/features/detailpro/company-logo";
+import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
 
 const GoogleIcon = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" aria-hidden="true">
@@ -18,7 +20,7 @@ const GoogleIcon = () => (
 
 type Mode = "entrar" | "cadastrar" | "recuperar";
 
-const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
+const SignIn1 = ({ serviceId, team = false }: { serviceId?: string | undefined; team?: boolean }) => {
   const selectedService = getService(serviceId);
   const [mode, setMode] = React.useState<Mode>("entrar");
   const [name, setName] = React.useState("");
@@ -69,6 +71,11 @@ const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
           await navigate({ to: destination, replace: true });
           return;
         }
+        if (team) {
+          setError("Sua conta ainda não foi autorizada para a equipe. Solicite acesso ao responsável.");
+          setChecking(false);
+          return;
+        }
         setUserEmail(user.email ?? "");
         setChecking(false);
       } catch {
@@ -80,7 +87,7 @@ const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
     };
     void resolveDestination();
     return () => { active = false; };
-  }, [user, navigate]);
+  }, [user, navigate, team]);
 
   const validateEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
@@ -102,13 +109,13 @@ const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
       if (mode === "cadastrar") {
         if (name.trim().length < 2) return setError("Informe seu nome.");
         if (password.length < 8) return setError("A senha deve ter pelo menos 8 caracteres.");
-        const { error: err } = await supabase.auth.signUp({
+        const { data, error: err } = await supabase.auth.signUp({
           email: email.trim(),
           password,
           options: { data: { nome: name.trim() }, emailRedirectTo: window.location.origin },
         });
         if (err) throw err;
-        setNotice("Conta criada! Confirme seu e-mail para entrar.");
+        setNotice(data.session ? "Conta criada com sucesso." : "Conta criada! Confirme seu e-mail para entrar.");
         setMode("entrar");
         return;
       }
@@ -126,7 +133,7 @@ const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
   const handleGoogle = async () => {
     setError("");
     // Return to this public page, preserving only the catalog-validated service ID.
-    const callback = new URL("/login", window.location.origin);
+    const callback = new URL(team ? "/login-equipe" : "/login", window.location.origin);
     if (selectedService) callback.searchParams.set("service", selectedService.id);
     const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: callback.href });
     if (result.error) setError("Não foi possível entrar com o Google. Tente novamente.");
@@ -147,7 +154,7 @@ const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
             <a href="/" className="flex flex-col items-center mb-10">
               <CompanyLogo className="size-36" />
               <span className="text-xs text-muted-foreground mt-2 tracking-[0.25em] uppercase">
-                {mode === "cadastrar" ? "Crie sua conta" : mode === "recuperar" ? "Recuperar senha" : "Entre para agendar"}
+                {mode === "cadastrar" ? "Crie sua conta" : mode === "recuperar" ? "Recuperar senha" : team ? "Acesso da equipe" : "Entre para agendar"}
               </span>
             </a>
 
@@ -185,7 +192,7 @@ const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
               <span className="text-sm text-muted-foreground text-center mt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
                 {mode === "entrar" ? (
                   <>
-                    <button type="button" onClick={() => { setMode("cadastrar"); setError(""); setNotice(""); }} className="underline text-foreground/80 hover:text-foreground">Inscreva-se, é grátis!</button>
+                    {!team && <button type="button" onClick={() => { setMode("cadastrar"); setError(""); setNotice(""); }} className="underline text-foreground/80 hover:text-foreground">Inscreva-se, é grátis!</button>}
                     <button type="button" onClick={() => { setMode("recuperar"); setError(""); setNotice(""); }} className="underline text-foreground/80 hover:text-foreground">Esqueci a senha</button>
                   </>
                 ) : (
@@ -193,6 +200,8 @@ const SignIn1 = ({ serviceId }: { serviceId?: string | undefined }) => {
                 )}
               </span>
             </form>
+            <Button asChild variant="link" className="mt-5"><Link to={team ? "/login" : "/login-equipe"} search={team ? { service: undefined } : {}}>{team ? "Acesso do cliente" : "Financeiro / Funcionário"}</Link></Button>
+            {team && user && <Button variant="outline" className="mt-2" onClick={async () => { await supabase.auth.signOut(); setUser(null); setUserEmail(null); setChecking(false); setError(""); }}>Entrar com outra conta</Button>}
           </>
         )}
       </div>

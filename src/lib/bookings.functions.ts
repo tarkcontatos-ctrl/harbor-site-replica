@@ -70,57 +70,13 @@ export const createBooking = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => bookingInput.parse(input))
   .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
-
-    // Preço e nome vêm SEMPRE do cadastro de serviços, nunca do cliente.
-    const { data: servico, error: sErr } = await supabase
-      .from("servicos")
-      .select("id, nome, preco")
-      .eq("slug", data.service)
-      .eq("ativo", true)
-      .single();
-    if (sErr || !servico) throw new Error("Serviço indisponível.");
-
-    let veiculoId: string | null = null;
-    if (data.placa && data.modelo) {
-      const placa = data.placa.toUpperCase().replace(/[^A-Z0-9]/g, "");
-      const { data: veiculo, error: vErr } = await supabase
-        .from("veiculos")
-        .upsert({ usuario_id: userId, placa, modelo: data.modelo }, { onConflict: "usuario_id,placa" })
-        .select("id")
-        .single();
-      if (vErr) throw new Error("Dados do veículo inválidos (placa no formato ABC1D23).");
-      veiculoId = veiculo.id;
-    }
-
-    const dataHora = `${data.date}T${data.time}:00-03:00`;
-
-    // Conflito de horário: verificação privilegiada (RLS esconde agendamentos de outros clientes).
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: conflito } = await supabaseAdmin
-      .from("agendamentos")
-      .select("id")
-      .eq("local", data.location)
-      .eq("status", "agendado")
-      .eq("data_hora", dataHora)
-      .maybeSingle();
-    if (conflito) throw new Error("Este horário acabou de ser reservado. Escolha outro.");
-
-    const { data: agendamento, error: aErr } = await supabase
-      .from("agendamentos")
-      .insert({ usuario_id: userId, veiculo_id: veiculoId, local: data.location, data_hora: dataHora })
-      .select("id")
-      .single();
-    if (aErr) throw new Error(aErr.message);
-
-    const { error: iErr } = await supabase
-      .from("agendamento_itens")
-      .insert({ agendamento_id: agendamento.id, servico_id: servico.id, servico_nome: servico.nome, preco_unitario: servico.preco });
-    if (iErr) {
-      await supabase.from("agendamentos").delete().eq("id", agendamento.id);
-      throw new Error(iErr.message);
-    }
-    return { id: agendamento.id };
+    const { data: id, error } = await context.supabase.rpc("create_customer_booking", {
+      p_service: data.service, p_date_time: `${data.date}T${data.time}:00-03:00`, p_location: data.location,
+      ...(data.placa ? { p_plate: data.placa.toUpperCase().replace(/[^A-Z0-9]/g, "") } : {}),
+      ...(data.modelo ? { p_model: data.modelo } : {}),
+    });
+    if (error) throw new Error(error.message);
+    return { id };
   });
 
 export const cancelBooking = createServerFn({ method: "POST" })
@@ -208,13 +164,13 @@ export const concluirAgendamento = createServerFn({ method: "POST" })
   .inputValidator((input: { id: string; formaPagamento: "pix" | "dinheiro" | "cartao_credito" | "cartao_debito" }) => input)
   .handler(async ({ data, context }) => {
     await requireStaff(context.supabase, context.userId);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await supabaseAdmin
+    const { data: updated, error } = await context.supabase
       .from("agendamentos")
       .update({ status: "concluido", forma_pagamento: data.formaPagamento })
       .eq("id", data.id)
-      .eq("status", "agendado");
+      .eq("status", "agendado").select("id").single();
     if (error) throw new Error(error.message);
+    if (!updated) throw new Error("Agendamento não encontrado ou já concluído.");
     return { ok: true };
   });
 
@@ -224,12 +180,12 @@ export const estornarAgendamento = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await requireStaff(context.supabase, context.userId);
     if (!data.motivo || data.motivo.trim().length < 3) throw new Error("Informe o motivo do estorno.");
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await supabaseAdmin
+    const { data: updated, error } = await context.supabase
       .from("agendamentos")
       .update({ status: "estornado", motivo_estorno: data.motivo.trim() })
       .eq("id", data.id)
-      .eq("status", "concluido");
+      .eq("status", "concluido").select("id").single();
     if (error) throw new Error(error.message);
+    if (!updated) throw new Error("Agendamento não encontrado ou já estornado.");
     return { ok: true };
   });
