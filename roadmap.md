@@ -1,4 +1,6 @@
 # Remaining button review
+- [ ] Repair customer registration and booking persistence, and verify payment ledger transitions.
+- [ ] Add explicit team sign-in entry points; enable staff/finance access only for owner-designated accounts (emails not supplied).
 - [x] Install supplied FB logo and replace placeholder branding, address and social contacts; mobile logo rendering and official links verified.
 - [x] Add free on-site booking confirmation and saveable receipt; seven tests pass, mobile display and download verified in isolation.
 - [ ] Verify confirmation after a real customer booking and reload; blocked until the user signs in to the preview (automatic sign-in could not find their account).
