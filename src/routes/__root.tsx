@@ -81,11 +81,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "DetailPro — Estética automotiva" },
-      { name: "description", content: "DetailPro — Cuidado profissional em cada detalhe do seu veículo." },
+      { title: "FB Estética Automotiva — Estética automotiva" },
+      { name: "description", content: "FB Estética Automotiva — Cuidado profissional em cada detalhe do seu veículo." },
       
-      { property: "og:title", content: "DetailPro — Estética automotiva" },
-      { property: "og:description", content: "DetailPro — Cuidado profissional em cada detalhe do seu veículo." },
+      { property: "og:title", content: "FB Estética Automotiva — Estética automotiva" },
+      { property: "og:description", content: "FB Estética Automotiva — Cuidado profissional em cada detalhe do seu veículo." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       

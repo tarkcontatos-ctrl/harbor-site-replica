@@ -10,7 +10,7 @@ export function BookingConfirmation({ booking, email, onClose }: { booking: Rece
     const url = URL.createObjectURL(new Blob(["\uFEFF", bookingReceiptText(booking, email)], { type: "text/plain;charset=utf-8" }));
     const link = document.createElement("a");
     link.href = url;
-    link.download = `DetailPro-agendamento-${booking.id}.txt`;
+    link.download = `FB Estética Automotiva-agendamento-${booking.id}.txt`;
     link.click();
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
@@ -21,7 +21,7 @@ export function BookingConfirmation({ booking, email, onClose }: { booking: Rece
         <DialogHeader className="items-center text-center sm:text-center">
           <span className="size-12 grid place-items-center rounded-full bg-primary/15 text-primary"><Check className="size-6" /></span>
           <DialogTitle className="pt-2 tracking-normal">{booking.status === "agendado" ? "Agendamento confirmado!" : "Comprovante de agendamento"}</DialogTitle>
-          <DialogDescription>DetailPro · {details.status}</DialogDescription>
+          <DialogDescription>FB Estética Automotiva · {details.status}</DialogDescription>
         </DialogHeader>
         <dl className="divide-y divide-border text-sm">
           {[["Serviço", booking.service], ["Data", `${details.date} às ${details.time}`], ["Local", booking.location], ["Valor", details.amount], ["Cliente", email], ["Código", booking.id]].map(([label, value]) => (

@@ -22,7 +22,7 @@ export function receiptDetails(booking: ReceiptBooking) {
 export function bookingReceiptText(booking: ReceiptBooking, email: string) {
   const details = receiptDetails(booking);
   return [
-    "DetailPro — Comprovante de agendamento",
+    "FB Estética Automotiva — Comprovante de agendamento",
     `Código: ${booking.id}`,
     `Situação: ${details.status}`,
     `Cliente: ${email}`,
@@ -33,6 +33,6 @@ export function bookingReceiptText(booking: ReceiptBooking, email: string) {
     `Valor: ${details.amount}`,
     "",
     "Este comprovante registra o agendamento, não comprova pagamento.",
-    "Consulte a situação atual em Meus agendamentos no site DetailPro.",
+    "Consulte a situação atual em Meus agendamentos no site FB Estética Automotiva.",
   ].join("\n");
 }

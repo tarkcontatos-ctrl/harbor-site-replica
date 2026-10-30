@@ -80,7 +80,7 @@ export function Shell({ eyebrow, title, intro, children, showBookingCta = true }
       </main>
       <footer className="border-t border-border">
         <div className="mx-auto max-w-6xl px-6 py-8 flex flex-col sm:flex-row justify-between gap-3 text-xs text-footer-muted">
-          <span>© 2026 DetailPro. Todos os direitos reservados.</span>
+          <span>© 2026 FB Estética Automotiva. Todos os direitos reservados.</span>
           <Link to="/" className="hover:text-primary">Voltar ao início</Link>
         </div>
       </footer>
@@ -123,7 +123,7 @@ export function AdvantagesPage() {
     { Icon: Car, t: "Busca e entrega", d: "Buscamos e devolvemos seu carro onde você estiver." },
   ];
   return (
-    <Shell eyebrow="Vantagens" title="Por que escolher a DetailPro" intro="Mais do que limpeza: um cuidado que preserva o valor e prolonga a vida útil do seu veículo.">
+    <Shell eyebrow="Vantagens" title="Por que escolher a FB Estética Automotiva" intro="Mais do que limpeza: um cuidado que preserva o valor e prolonga a vida útil do seu veículo.">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {items.map(({ Icon, t, d }) => <div key={t} className={card}><div className={icon}><Icon className="w-5 h-5" /></div><h2 className="font-semibold mb-2">{t}</h2><p className="text-sm text-muted-foreground leading-relaxed">{d}</p></div>)}
       </div>
@@ -165,7 +165,7 @@ export function ReviewsPage() {
     { n: "Patrícia R.", c: "VW T-Cross", t: "Agendei pelo site em um minuto. Experiência excelente do começo ao fim." },
   ];
   return (
-    <Shell eyebrow="Avaliações" title="O que nossos clientes dizem" intro="Nota média 5.0 — a satisfação de quem confia o carro à DetailPro.">
+    <Shell eyebrow="Avaliações" title="O que nossos clientes dizem" intro="Nota média 5.0 — a satisfação de quem confia o carro à FB Estética Automotiva.">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {reviews.map((r) => (
           <figure key={r.n} className={card}>
@@ -197,7 +197,7 @@ export function ContactPage() {
     setNotice("Mensagem preparada. Conclua o envio no seu aplicativo de e-mail.");
   };
   return (
-    <Shell eyebrow="Contato" title="Fale com a gente" intro="Tire dúvidas, peça um orçamento ou siga a DetailPro nas redes sociais.">
+    <Shell eyebrow="Contato" title="Fale com a gente" intro="Tire dúvidas, peça um orçamento ou siga a FB Estética Automotiva nas redes sociais.">
       <div className="grid gap-6 lg:grid-cols-[1fr_1.3fr]">
         <div className="space-y-4">
           {[

@@ -1,14 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import * as React from "react";
+import { CompanyLogo } from "@/features/detailpro/company-logo";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: "Redefinir senha — DetailPro" },
-      { name: "description", content: "Defina uma nova senha para a sua conta DetailPro." },
-      { property: "og:title", content: "Redefinir senha — DetailPro" },
-      { property: "og:description", content: "Defina uma nova senha para a sua conta DetailPro." },
+      { title: "Redefinir senha — FB Estética Automotiva" },
+      { name: "description", content: "Defina uma nova senha para a sua conta FB Estética Automotiva." },
+      { property: "og:title", content: "Redefinir senha — FB Estética Automotiva" },
+      { property: "og:description", content: "Defina uma nova senha para a sua conta FB Estética Automotiva." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -47,7 +48,7 @@ function ResetPasswordPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background px-4 py-16">
       <div className="w-full max-w-md px-8 sm:px-12 py-14 rounded-[2rem] bg-card/70 border border-border backdrop-blur-xl flex flex-col items-center">
-        <b className="text-2xl font-semibold tracking-tight mb-8" style={{ fontFamily: "var(--hf)" }}>DETAIL<span className="text-primary">PRO</span></b>
+        <CompanyLogo className="size-32 mb-8" />
         {done ? (
           <>
             <p className="text-sm text-muted-foreground text-center mb-6">Senha redefinida com sucesso. Você já pode entrar.</p>

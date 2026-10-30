@@ -6,9 +6,9 @@ export const Route = createFileRoute("/login")({
   validateSearch: bookingSearch,
   head: () => ({
     meta: [
-      { title: "Entrar — DetailPro" },
-      { name: "description", content: "Entre na sua conta DetailPro para concluir o agendamento do seu serviço." },
-      { property: "og:title", content: "Entrar — DetailPro" },
+      { title: "Entrar — FB Estética Automotiva" },
+      { name: "description", content: "Entre na sua conta FB Estética Automotiva para concluir o agendamento do seu serviço." },
+      { property: "og:title", content: "Entrar — FB Estética Automotiva" },
       { property: "og:description", content: "Conclua o agendamento do seu serviço de estética automotiva." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
