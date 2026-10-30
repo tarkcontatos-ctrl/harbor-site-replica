@@ -325,6 +325,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_customer_booking: {
+        Args: {
+          p_date_time: string
+          p_location: string
+          p_model?: string
+          p_plate?: string
+          p_service: string
+        }
+        Returns: string
+      }
       create_walk_in_booking: {
         Args: {
           p_date_time: string

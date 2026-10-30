@@ -38,7 +38,7 @@ export function StaffDashboard({ view }: { view: "staff" | "finance" }) {
     <main className="mx-auto max-w-6xl space-y-8 px-5 py-10">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4"><div className="min-w-0"><p className="mb-3 text-xs uppercase text-muted-foreground">Equipe DetailPro</p><h1 className="text-2xl break-words font-semibold sm:text-3xl">{view === "staff" ? "Painel dos funcionários" : "Painel financeiro"}</h1></div>{query.data && <Button variant="outline" size="icon" title="Atualizar painel" aria-label="Atualizar painel" onClick={() => void refresh()} disabled={query.isFetching}><RefreshCw className={query.isFetching ? "animate-spin motion-reduce:animate-none" : ""} /></Button>}</div>
       {signedIn === null && <p>Verificando acesso…</p>}
-      {signedIn === false && <Button asChild><Link to="/login" search={{ service: undefined }}>Entrar com conta da equipe</Link></Button>}
+      {signedIn === false && <Button asChild><Link to="/login-equipe">Entrar com conta da equipe</Link></Button>}
       {signedIn && query.isPending && <p>Carregando…</p>}
       {query.error && <p role="alert" className="text-chart-refund">{query.error.message.includes("restrito") ? "Sua conta não tem acesso aos painéis da equipe." : "Não foi possível carregar o painel. Tente atualizar."}</p>}
       {signedIn && query.data && <>

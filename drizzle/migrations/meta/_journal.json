@@ -43,6 +43,13 @@
       "when": 1792743107907,
       "tag": "0005_seed_servicos",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1793362608920,
+      "tag": "0006_atomic_customer_booking_and_signup",
+      "breakpoints": true
     }
   ]
 }
