@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { listMyBookings, listTakenSlots, createBooking, cancelBooking } from "@/lib/bookings.functions";
 import { BookingConfirmation } from "@/features/detailpro/booking-confirmation";
 import type { ReceiptBooking } from "@/features/detailpro/booking-receipt";
+import { CompanyLogo } from "@/features/detailpro/company-logo";
 
 type Booking = ReceiptBooking;
 
@@ -111,7 +112,7 @@ export function BookingPanel({ email, selectedService }: { email: string; select
         </div>
       )}
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex">
-        <div className="hidden sm:grid shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary/60 grid place-items-center font-bold text-primary-foreground" style={{ fontFamily: "var(--hf)" }}>DP</div>
+        <CompanyLogo className="hidden sm:block size-14" />
         <div className="min-w-0 flex-1">
           <h2 className="text-lg sm:text-xl font-semibold" style={{ fontFamily: "var(--hf)" }}>Agende seu horário</h2>
           <p className="text-xs text-muted-foreground mt-1 flex items-start gap-1 break-all"><Star className="w-3.5 h-3.5 fill-primary text-primary shrink-0" /> 5.0 · Olá, {email}</p>

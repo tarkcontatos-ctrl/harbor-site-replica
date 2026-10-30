@@ -1,12 +1,12 @@
 # Remaining button review
-- [ ] Install supplied FB logo and replace placeholder branding, address and social contacts; verify visible links.
+- [x] Install supplied FB logo and replace placeholder branding, address and social contacts; mobile logo rendering and official links verified.
 - [x] Add free on-site booking confirmation and saveable receipt; seven tests pass, mobile display and download verified in isolation.
 - [ ] Verify confirmation after a real customer booking and reload; blocked until the user signs in to the preview (automatic sign-in could not find their account).
 - [x] Adapt navigation, home, content pages and booking controls for phones.
 - [x] Add a clearly labeled example location at the bottom using the existing Google Maps embed.
 - [x] Verify public phone layouts at 360, 390 and 640px and service-to-login navigation; no horizontal overflow or runtime errors.
 - [ ] Verify Google Maps rendering on the published site; live Maps testing is unavailable here.
-- [ ] Brand authentication emails as DetailPro without Lovable branding; blocked until an owned sender domain is configured.
+- [x] Authentication email branding shelved with email work; no sender setup requested.
 - [x] Booking email notifications shelved at the user's request; no sender setup or sends added.
 - [x] Add staff walk-in scheduling, save customer details and verify real booking readback.
 - [x] Add complete daily, monthly and annual financial charts and verify period filters.
